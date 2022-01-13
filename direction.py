@@ -17,10 +17,10 @@ def direction(facing: str, turn: int) -> str:
     except KeyError:
         raise ValueError('Wrong direction. Options: N, NE, E, SE, S, SW, W, NW')
     try:
-        turn = turn % 360
+        turn %= 360
         compass_invert[turn]
-    except KeyError:
-        raise ValueError('Turn must be a multiple of 45')
+    except (TypeError, KeyError):
+        raise ValueError('Turn must be an integer multiple of 45')
     
     result = (current_degree + turn) % 360
     return compass_invert[result]
@@ -32,6 +32,3 @@ def direction(facing: str, turn: int) -> str:
 # "W",  495  -->  "NE"
 # "EN", 45  --> ValueError: "Wrong direction..."
 # "W", 375  --> ValueError: "Turn must be a multiple of 45"
-
-
-    
